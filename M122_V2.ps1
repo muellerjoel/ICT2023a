@@ -48,7 +48,7 @@ function Get-RandomCharacters($length, $characters) {
 }
 
 # Scramble the string from Get-RandomCharacters which is the password
-function Scramble-String([string]$inputString){     
+function Get-ScrambleString([string]$inputString){     
     $characterArray = $inputString.ToCharArray()   
     $scrambledStringArray = $characterArray | Get-Random -Count $characterArray.Length     
     $outputString = -join $scrambledStringArray
@@ -118,13 +118,13 @@ while($true) # Endless loop
         $Passwort += Get-RandomCharacters -length 1 -characters '1234567890' # Get one digit
         $Passwort += Get-RandomCharacters -length 1 -characters '!"§$%&/()=?}][{@#*+' # Get one special character
     
-        $Passwort = Scramble-String $Passwort # Scramble the string with the Scramble-String function
+        $Passwort = Get-ScrambleString $Passwort # Scramble the string with the Scramble-String function
         
         # Output of the password and workers fullname
         Write-Host "Das Passwort des Mitarbeiters $Vorname $Name ist: $Passwort"
 
         # Give each column in table WORKERS a variable with a value like Vorname <= Joe of the variable $Vorname
-        $DataTable = 1..1 | %{
+        $DataTable = 1..1 | ForEach-Object{
         [pscustomobject]@{
             Vorname = "$Vorname"
             Name = "$Name"
