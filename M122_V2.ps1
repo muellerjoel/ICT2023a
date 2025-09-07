@@ -78,7 +78,7 @@ while($true) # Endless loop
         $Email = $Email.ToLower() # Convert E-Mail to lowercase
         $Email = ConvertFrom-Unicode $Email # Remove Specialcharacters
 
-        # Select table Workers an count how many times variable $Email is in the table WORKERS and save the value in variable $query
+        # Select table Workers an count how many times the Fullname is in the table WORKERS and save the value in variable $query
         $Query = "SELECT COUNT(*) AS ANZAHL FROM WORKERS WHERE VORNAME = '$Vorname' AND NAME = '$Name';"
 
         $Number = Invoke-SqliteQuery -DataSource $Database -Query $Query
