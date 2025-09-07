@@ -4,6 +4,7 @@
     Install-Module -Name PSUnidecode -Scope CurrentUser
     Import-Module -Name PSSQLite -Scope Global
     Import-Module -Name PSUnidecode -Scope Global
+
 # Create path C:\M122
 
     New-Item -ItemType Directory -Path "C:\M122" -Force
@@ -84,8 +85,6 @@ while($true) # Endless loop
         $Number = $Number -replace "@{ANZAHL=" # Remove characters which aren't necessary at the beginning
         $Number = $Number -replace "}" # Remove character at the end
         
-        #$Number = ([regex]::Matches($EmailDatabase, " " )).count # count how many email are in the string with regular expression and function count
-    
         if($Number -ge 1){ # If number greater or equal one then add a number to the email address. If not genarate the normal email of the worker
             $Email = $($Vorname)+"."+$($Name)+$($Number)+"@firma.net"
             $Email = $Email.ToLower() # Convert E-Mail to lowercase
