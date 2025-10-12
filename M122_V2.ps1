@@ -59,7 +59,7 @@ function Get-ScrambleString([string]$inputString){
 
 while($true) # Endless loop
 {
-    $Confirmation = Read-Host "Willst du einen neuen Mitarbeiter ersellen? [y/n]" # Ask question with two answewr options and save in variable
+    $Confirmation = Read-Host "Willst du einen neuen Mitarbeiter erstellen? [y/n]" # Ask question with two answewr options and save in variable
     
     if($Confirmation -eq "n"){ # Ask question if variable $Confirmation equal n
         $Exit = Read-Host "Willst du das Programm beenden? [y/n]"
@@ -98,16 +98,26 @@ while($true) # Endless loop
 
         Write-Host "Die E-Mail lautet: $($Email)" # Output the E-Mail as lowercase string
 
-        $Age = Read-Host "Wie alt ist der Mitabeiter? Gebe eine Ganzzahl weleches dem Alter in Jahren enstpricht"
-        if($Age -match '^[0-9]+$' -ne $true){ #Looks if Variable Age is a Integer
-            Write-Host Gebe bitte eine Ganzzahl ein!
+        
+        while($true){
             $Age = Read-Host "Wie alt ist der Mitabeiter? Gebe eine Ganzzahl weleches dem Alter in Jahren enstpricht"
+            if($Age -match '^[0-9]+$' -ne $true){ #Looks if Variable Age is a Integer
+                Write-Host Gebe bitte eine Ganzzahl ein!
+            }
+            else{
+            break
+            }
         }
 
-        $Lohn = Read-Host "Gib den Lohn von $Vorname $Name als ganzzahligen CHF-Betrag ein"
-        if($Lohn -match '^[0-9]+$' -ne $true){ #Looks if Variable Lohn is a Integer
-            Write-Host Gebe bitte eine Ganzzahl ein!
-            $Lohn = Read-Host "Wie alt ist der Mitabeiter? Gebe eine Ganzzahl weleches dem Alter in Jahren enstpricht"
+        
+        while($true){
+            $Lohn = Read-Host "Gib den Lohn von $Vorname $Name als ganzzahligen CHF-Betrag ein"
+            if($Lohn -match '^[0-9]+$' -ne $true){ #Looks if Variable Lohn is a Integer
+                Write-Host Gebe bitte eine Ganzzahl ein!J
+            }
+            else{
+                break
+            }
         }
         $Job  = Read-Host "Wie lautet die Jobbezeichnung vom Mitarbeiter $Vorname"$Name"?"
 
@@ -137,7 +147,7 @@ while($true) # Endless loop
 
     #Insert the data within a single transaction (SQLite is faster this way)
     Invoke-SQLiteBulkCopy -DataTable $DataTable -DataSource $Database -Table WORKERS -NotifyAfter 1000  # -verbose (This option is only to debug)
-        break
+    break
     }
 }
 #We have a database, and a table, let's view the table info. Here the names, age and email of the workers and finish the process
