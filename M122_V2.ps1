@@ -1,21 +1,21 @@
 # Install the module if doesn't exist, import the module if exists
 
-    Install-Module -Name PSSQLite -Scope CurrentUser
-    Install-Module -Name PSUnidecode -Scope CurrentUser
-    Import-Module -Name PSSQLite -Scope Global
-    Import-Module -Name PSUnidecode -Scope Global
+Install-Module -Name PSSQLite -Scope CurrentUser
+Install-Module -Name PSUnidecode -Scope CurrentUser
+Import-Module -Name PSSQLite -Scope Global
+Import-Module -Name PSUnidecode -Scope Global
 
 # Create path C:\M122
 
-    New-Item -ItemType Directory -Path "C:\M122" -Force
+New-Item -ItemType Directory -Path "C:\M122" -Force
 
 # Create Variable for Path of Database at C:\M122\Workers.SQLite
 
-    $Database = "C:\M122\Workers.SQLite"
+$Database = "C:\M122\Workers.SQLite"
 
 # Create Variable for table WORKERS wit nessescary columns
 
-    $Query =  "CREATE TABLE IF NOT EXISTS WORKERS ( 
+$Query =  "CREATE TABLE IF NOT EXISTS WORKERS ( 
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     Vorname TEXT NOT NULL,
     Name TEXT NOT NULL,
@@ -28,7 +28,7 @@
 
 # SQLite will create database Workers.SQLite for us
 
-    Invoke-SqliteQuery -Query $Query -DataSource $Database
+Invoke-SqliteQuery -Query $Query -DataSource $Database
 
 
 # Intialise variable to create new worker
