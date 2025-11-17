@@ -6,7 +6,7 @@ import sqlite3, os, sys, secrets, re
 # Definiere die Klasse Person ohne Parameter
 class Person:
     def __init__(self):
-        # Initialisierung der Attribute bzw. Variablen mit Booelan (None), String ("") Integer (0) und Float (0.0) 
+        # Initialisierung der Attribute bzw. Variablen mit keinem Wert (None), String ("") Integer (0) und Float (0.0) 
         self.connection = None
         self.primary_question = ""
         self.password = ""
