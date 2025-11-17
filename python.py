@@ -170,8 +170,7 @@ class Person:
 
 
 if __name__ == "__main__":
-
-    #Kernprogramm startet hier
+    # Kernprogramm startet hier
     # Klasse Person initialisieren
     p = Person()
 
@@ -180,8 +179,7 @@ if __name__ == "__main__":
     p.sqlite_connect()
     p.ask_question()
 
-    # Je nach Antwort weitere Funktionen aufrufen der Klasse Person aufrufen
-
+    # Je nach Antwort weitere Funktione der Klasse Person aufrufen
     if p.primary_question == "y":
         p.generate_password()
         p.generate_email()
