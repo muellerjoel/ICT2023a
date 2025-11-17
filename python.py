@@ -179,7 +179,7 @@ if __name__ == "__main__":
     p.sqlite_connect()
     p.ask_question()
 
-    # Je nach Antwort weitere Funktione der Klasse Person aufrufen
+    # Wenn die Antwort y ist weitere Funktione der Klasse Person aufrufen
     if p.primary_question == "y":
         p.generate_password()
         p.generate_email()
