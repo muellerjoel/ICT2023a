@@ -1,9 +1,12 @@
+### Setze die Programmiersprache auf den Interpeter python mit dem Shebang
 #!/bin/python
+# Importiere verschiedene Module u.a. Regex (re) und SQLite3 (sqlite3)
 import sqlite3, os, sys, secrets, re
 
+# Definiere die Klasse Person ohne Parameter
 class Person:
     def __init__(self):
-        # Initialisierung der Attribute bzw. Variablen
+        # Initialisierung der Attribute bzw. Variablen mit Booelan (None), String ("") Integer (0) und Float (0.0) 
         self.connection = None
         self.primary_question = ""
         self.password = ""
@@ -29,7 +32,7 @@ class Person:
         # Verbindung zur SQLite-Datenbank herstellen
         self.connection = sqlite3.connect(db_path)
 
-        # Tabelle erstellen, falls sie noch nicht existiert
+        # Tabelle erstellen, falls sie noch nicht existiert. Die Zellen sind auf die Variablen abgestummen. Der Primarykey wird autoinkrementiert (+1)
         self.connection.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,12 +51,13 @@ class Person:
     def ask_question(self):
         # Frage stellen, ob ein User erstellt werden soll
         self.primary_question = input("Willst du ein User erstellen? [y/n] ")
-
+        # Ist primary_question = y dann wird die Verzweigung der True Teil ausgeführt
         if self.primary_question == "y":
             self.surname = input("Wie ist der Vorname? ")
             self.name = input("Wie ist der Nachname? ")
             self.position = input("Was ist der Job von " + self.surname + " " + self.name +"? ")
 
+            # Endlosschleifen bis ein richtiger Wert eingegeben wird für Alter (age) und Lohn (gain)
             while True:
                 try:
                     self.age = int(input("Wie ist das Alter von " + self.surname + " " + self.name +"? "))
@@ -67,7 +71,7 @@ class Person:
                     break
                 except ValueError:
                     print("Gebe eine Zahl für den Lohn ein!")
-
+        # Ist die primary_queastion = n wird der else if Teil ausgeführt um zu Fragen ob er das Programm beenden will. Gibt er nicht y oder n ein wird eine richtige Antwort verlangt
         elif self.primary_question == "n":
             quit_program = input("Willst du das Programm beenden? [y/n] ")
             if quit_program == "y":
@@ -89,8 +93,8 @@ class Person:
         # E-Mail generieren
         base = f"{self.surname}.{self.name}".lower()
 
-        # Umlaute ersetzen
-        umlaut_map = {
+        # Definiierte Sonderzeichen vom Deutsch und Französisch im Namen ersetzen
+        special_characters_map = {
             "ä": "ae",
             "ö": "oe",
             "ü": "ue",
@@ -112,14 +116,15 @@ class Person:
             "À": "A",
             "Á": "A",
             "Ç": "C"}
-
-        for u, repl in umlaut_map.items():
+        # for-Schleife durch die Zeichenkette des Namens
+        for u, repl in special_characters_map.items():
+            # Ersetzte aus Liste special_charactes_map mit der Kolummepostion u (Links) mit der Kolummepostion rep1 (Rechts)
             base = base.replace(u, repl)
 
-        # Danach unerlaubte Zeichen entfernen (nur Buchstaben, Zahlen, Punkte)
+        # Danach unerlaubte Zeichen entfernen (nur Buchstaben, Zahlen, Punkte) mit Regex
         base = re.sub(r'[^a-z0-9.]', '', base)
 
-        # Wie viele Emails gibt es schon mit diesem Prefix?
+        # Wie viele Emails gibt es schon mit diesem Prefix? Addiere ein Integer ab 1 falls der Prefix existiert
         cursor = self.connection.execute(
             "SELECT COUNT(*) FROM users WHERE email LIKE ?",
             (base + "%@firma.net",)
