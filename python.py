@@ -49,42 +49,45 @@ class Person:
         self.connection.commit()
 
     def ask_question(self):
-        # Frage stellen, ob ein User erstellt werden soll
-        self.primary_question = input("Willst du ein User erstellen? [y/n] ")
-            
-        # Ist primary_question = y dann wird die Verzweigung der True Teil ausgeführt
-        if self.primary_question == "y":
-            self.surname = input("Wie ist der Vorname? ")
-            self.name = input("Wie ist der Nachname? ")
-            self.position = input("Was ist der Job von " + self.surname + " " + self.name +"? ")
+        # Endlosschleife um immer wieder zu Fragen ob ein User erstellt werden soll
+        while True:  
+            # Frage stellen, ob ein User erstellt werden soll
+            self.primary_question = input("Willst du ein User erstellen? [y/n] ")
+                
+            # Ist primary_question = y dann wird die Verzweigung der True Teil ausgeführt
+            if self.primary_question == "y":
+                self.surname = input("Wie ist der Vorname? ")
+                self.name = input("Wie ist der Nachname? ")
+                self.position = input("Was ist der Job von " + self.surname + " " + self.name +"? ")
 
-            # Endlosschleifen bis ein richtiger Wert eingegeben wird für Alter (age) und Lohn (gain)
-            while True:
-                try:
-                    self.age = int(input("Wie ist das Alter von " + self.surname + " " + self.name +"? "))
+                # Endlosschleifen bis ein richtiger Wert eingegeben wird für Alter (age) und Lohn (gain)
+                while True:
+                    try:
+                        self.age = int(input("Wie ist das Alter von " + self.surname + " " + self.name +"? "))
+                        break
+                    except ValueError:
+                        print("Gebe eine Ganzzahl für das Alter ein!")
+
+                while True:
+                    try:
+                        self.gain = float(input("Wie ist der Lohn von " + self.surname + " " + self.name +"? "))
+                        break
+                    except ValueError:
+                        print("Gebe eine Ganzzahl für den Lohn ein!")
+                break
+            # Ist die primary_queastion = n wird der else if Teil ausgeführt um zu Fragen ob er das Programm beenden will. Gibt er nicht y oder n ein wird eine richtige Antwort verlangt
+            elif self.primary_question == "n":
+                quit_program = input("Willst du das Programm beenden? [y/n] ")
+                if quit_program == "y":
+                    sys.exit("Das Programm wird beendet")
+                elif quit_program == "n":
+                    p.print_table()
+                    p.ask_question()
                     break
-                except ValueError:
-                    print("Gebe eine Ganzzahl für das Alter ein!")
-
-            while True:
-                try:
-                    self.gain = float(input("Wie ist der Lohn von " + self.surname + " " + self.name +"? "))
-                    break
-                except ValueError:
-                    print("Gebe eine Ganzzahl für den Lohn ein!")
-
-        # Ist die primary_queastion = n wird der else if Teil ausgeführt um zu Fragen ob er das Programm beenden will. Gibt er nicht y oder n ein wird eine richtige Antwort verlangt
-        elif self.primary_question == "n":
-            quit_program = input("Willst du das Programm beenden? [y/n] ")
-            if quit_program == "y":
-                sys.exit("Das Programm wird beendet")
-            elif quit_program == "n":
-                p.print_table()
-                p.ask_question()
+                else:
+                    print("Antworte mit y oder n")
             else:
                 print("Antworte mit y oder n")
-        else:
-            print("Antworte mit y oder n")
 
     def generate_password(self):
         # Das Passwort genrieren mit einer Länge von 8 Zeichen
