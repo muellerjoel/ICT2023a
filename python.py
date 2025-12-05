@@ -189,6 +189,6 @@ if __name__ == "__main__":
         p.generate_password()
         p.generate_email()
         p.save_credentials()
-        print("User" + p.surname + p.name + "wurde gespeichert mit E-Mail:", p.email)
+        print("User " + p.surname + " " + p.name + " wurde gespeichert mit E-Mail:", p.email)
         p.print_table()
-        p.ask_question()
+        p.ask_question() 
